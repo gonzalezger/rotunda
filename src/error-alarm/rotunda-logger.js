@@ -8,6 +8,8 @@
 class RotundaLogger {
   constructor(options = {}) {
     this.options = Object.assign({}, { maxErrorsPerMinute: 10, emailCooldown: 60000 }, options);
+
+    // this could be stored in a cache like Redis or Memcached just in case the server restarts or crashes.
     this.errorTimestamps = [];
     this.lastSentEmailTimestamp = 0;
   }
