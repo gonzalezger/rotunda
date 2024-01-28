@@ -45,7 +45,7 @@ function getQueryStringHash(queryString) {
  * @param {boolean} prefixQueryStringDuplicates - If true, query string keys that are also in the url path will be prefixed with 'q:'.
  * @returns {Object} - An object with all the mapped parameters of the URL.
  */
-function parse(urlFormat, urlInstance, prefixQueryStringDuplicates = false) {
+function parse(urlFormat, urlInstance, prefixQueryStringDuplicates = true) {
   const [urlParts, queryString] = urlInstance.split('?');
 
   const urlPartsHash = getUrlPartsHash(urlFormat, urlParts);
