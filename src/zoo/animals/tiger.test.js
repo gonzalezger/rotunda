@@ -14,4 +14,14 @@ describe('Tiger', () => {
 
     expect(tiger.speak(actualMessage)).toBe(expectedMessage);
   })
+
+  it('should override default sound', () => {
+    const tiger = new Tiger('meow');
+
+    const actualMessage = "I'm not Tigger from Disney.";
+    const expectedMessage = "I'm meow not meow Tigger meow from meow Disney meow.";
+
+    expect(tiger.sound).toBe('meow');
+    expect(tiger.speak(actualMessage)).toBe(expectedMessage);
+  });
 })

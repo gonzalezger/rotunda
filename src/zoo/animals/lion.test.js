@@ -14,4 +14,14 @@ describe('Lion', () => {
 
     expect(lion.speak(actualMessage)).toBe(expectedMessage);
   })
+
+  it('should override default sound', () => {
+    const lion = new Lion('meow');
+
+    const actualMessage = "I'm just a big cat.";
+    const expectedMessage = "I'm meow just meow a meow big meow cat meow.";
+
+    expect(lion.sound).toBe('meow');
+    expect(lion.speak(actualMessage)).toBe(expectedMessage);
+  });
 });

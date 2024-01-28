@@ -10,8 +10,8 @@ function tryToNumber(value) {
 
 /**
  * 
- * @param {*} urlFormat - The format of the URL.
- * @param {*} urlInstance - The specific instance of the URL.
+ * @param {string} urlFormat - The format of the URL.
+ * @param {string} urlInstance - The specific instance of the URL.
  * @returns {Object} - An object with the mapped path parameters of the URL.
  */
 function getUrlPartsHash(urlFormat, urlInstance) {
