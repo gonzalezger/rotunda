@@ -41,6 +41,7 @@ describe('Rotunda Logger', () => {
     jest.advanceTimersByTime(500);
 
     logger.logError('test');
+    logger.logError('test');
     expect(logger.sendEmail).toHaveBeenCalledTimes(1); // Email is not sent again because email cooldown is not reached yet
 
     // Advance time by another 1000 ms, exceeding the cooldown period

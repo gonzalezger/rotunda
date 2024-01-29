@@ -18,14 +18,19 @@ class RotundaLogger {
     // log error to file
 
     const now = Date.now();
+    const oneMinuteAgo = now - 60000;
+
     this.errorTimestamps.push(now);
 
-    const oneMinuteAgo = now - 60000;
-    // remove timestamps older than one minute. this is a simple way to keep the array from growing too large.
-    this.errorTimestamps = this.errorTimestamps.filter(timestamp => timestamp > oneMinuteAgo);
-    
-    const errorsInLastMinute = this.errorTimestamps.length;
+    const errorsInLastMinute = this.errorTimestamps.filter(timestamp => timestamp > oneMinuteAgo).length;
+
     const reachedMaxErrorsPerMinute = errorsInLastMinute > this.options.maxErrorsPerMinute;
+    if (reachedMaxErrorsPerMinute) {
+      // remove the oldest error timestamp, keeping only the most recent maxErrorsPerMinute errors
+      // the diffence between the other implementation is that in a hight frequency scenario, the array could grow indefinitely
+      this.errorTimestamps = this.errorTimestamps.slice(-(this.options.maxErrorsPerMinute));
+    }
+
     const reachedEmailCooldown = now - this.lastSentEmailTimestamp > this.options.emailCooldown;
 
     if (reachedMaxErrorsPerMinute && reachedEmailCooldown) {
