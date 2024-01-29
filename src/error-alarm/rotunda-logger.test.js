@@ -52,4 +52,20 @@ describe('Rotunda Logger', () => {
 
     jest.useRealTimers();
   });
+
+  it('should not send an email if diff between error timestamps exceeds one minute', () => {
+    jest.useFakeTimers();
+    const logger = new RotundaLogger({ maxErrorsPerMinute: 1, emailCooldown: 1000 });
+    jest.spyOn(logger, 'sendEmail');
+
+    logger.logError('test');
+    expect(logger.sendEmail).not.toHaveBeenCalled();
+
+    jest.advanceTimersByTime(61000);
+
+    logger.logError('test');
+    expect(logger.sendEmail).not.toHaveBeenCalled();
+
+    jest.useRealTimers();
+  });
 });
